@@ -7,8 +7,10 @@ import * as path from "path";
 import xlsx from 'node-xlsx';
 import * as fs from "fs";
 
+import { SchoolDb } from "./school";
+
 (mongoose as any).Promise = require('bluebird');
-mongoose.connect('mongodb://localhost:27017/propquiz');
+mongoose.connect('mongodb://localhost:27017/schools');
 
 const app = express();
 const router = express.Router();
@@ -49,20 +51,40 @@ app.post('/upload', function(req, res) {
       var school = req.body.school;
       var link = req.body.link;
 
-      var schoolData = {
+      var schoolData = new SchoolDb({
         school : school,
         link: link
-      }
+      });
 
       workSheetsFromFile.forEach(function (x) {
-        x.data.forEach(function(y) {
-          schoolData['data'] = y;
-        });
+        schoolData['data'] = x.data;
+      });
+
+      schoolData.save(function(err, doc) {
+        if (err) {
+          res.status(400).end();
+          console.log(err);
+          return;
+        }
       });
 
       console.log(schoolData);
 
       res.send('File uploaded!');
     }
+  });
+
+});
+
+app.get("/schoolinfo", function(req, res) {
+  SchoolDb.find({})
+  SchoolDb.find({}, function(err, doc) {
+    res.json(doc);
+  });
+});
+
+app.get("/schoolinfo/:id", function(req, res) {
+  SchoolDb.findOne({"school" : req.params.id}, function(err, doc) {
+    res.json(doc ? doc : {});
   });
 });
