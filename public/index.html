@@ -1,0 +1,17 @@
+<html>
+    <body>
+        <h1>School Donation</h1>
+        <form ref='uploadForm' 
+            id='uploadForm' 
+            action='http://localhost:8080/upload' 
+            method='post' 
+            encType="multipart/form-data">
+              <ul>
+                  <li>School Name: <input name="school" type="text" value="" /></>
+                  <li>Donation Link: <input name="link" type="url" value="" /></>
+                  <li><input type="file" name="sampleFile" />
+                <input type='submit' value='Submit!' /> </li>
+            </ul>
+        </form>		
+    </body>
+</html>
