@@ -42,7 +42,6 @@ router.post('/upload', function(req, res) {
   sampleFile = req['files'].sampleFile;
   sampleFile.mv('./myFile.xlsx', function(err) {
     if (err) {
-      console.log("hre");
       res.status(500).send(err);
     }
     else {
@@ -50,34 +49,11 @@ router.post('/upload', function(req, res) {
       var workSheetsFromFile;
       try {
         workSheetsFromFile = xlsx.parse(`${__dirname}/myFile.xlsx`);
+        res.json(workSheetsFromFile);
       } catch (err) {
         res.status(500).send(err);
         return;
       }
-
-      var school = req.body.school;
-      var link = req.body.link;
-
-      var schoolData = new SchoolDb({
-        school : school,
-        link: link
-      });
-
-      workSheetsFromFile.forEach(function (x) {
-        schoolData['data'] = x.data;
-      });
-
-      schoolData.save(function(err, doc) {
-        if (err) {
-          res.status(400).end();
-          console.log(err);
-          return;
-        }
-      });
-
-      console.log(schoolData);
-
-      res.redirect('/')
     }
   });
 
