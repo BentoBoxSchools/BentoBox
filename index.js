@@ -46,6 +46,24 @@ router.post('/schools/upload', function (req, res) {
         }
     });
 });
+router.post('/schools/', function (req, res) {
+    var school = req.body.school;
+    var link = req.body.link;
+    var data = req.body.data;
+    var schoolData = new school_1.SchoolDb({
+        school: school,
+        link: link,
+        data: data
+    });
+    schoolData.save(function (err, doc) {
+        if (err) {
+            res.status(400).end();
+            console.log(err);
+            return;
+        }
+    });
+    res.redirect('/');
+});
 router.get("/schools", function (req, res) {
     school_1.SchoolDb.find({}, function (err, doc) {
         res.json(doc);
