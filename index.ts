@@ -31,7 +31,7 @@ var fileUpload = require('express-fileupload');
 // default options 
 router.use(fileUpload());
  
-router.post('/upload', function(req, res) {
+router.post('/schools/upload', function(req, res) {
   var sampleFile;
  
   if (!req['files']) {
