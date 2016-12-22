@@ -20,6 +20,12 @@
       </md-card-content>
 
       <md-card-actions>
+        <router-link
+          tag="md-button"
+          :to="'/school/' + school._id"
+        >
+          Detail
+        </router-link>
         <md-button target="_blank"
           :href="school.link"
         >
@@ -57,6 +63,9 @@ export default {
 .container {
   max-width: 60em;
   margin: 0 auto !important;
+}
+.md-layout {
+  align-items: flex-start;
 }
 .md-layout .md-layout {
   margin-bottom: 1.5em;

@@ -67,7 +67,7 @@ router.get("/schools", function (req, res) {
     });
 });
 router.get("/schools/:id", function (req, res) {
-    school_1.SchoolDb.findOne({ "school": req.params.id }, function (err, doc) {
+    school_1.SchoolDb.findOne({ "_id": req.params.id }, function (err, doc) {
         res.json(doc ? doc : {});
     });
 });

@@ -1,8 +1,8 @@
 <template>
   <md-toolbar class="md-transparent">
-    <md-button class="md-icon-button">
+    <router-link tag="md-button" class="md-icon-button" to="/">
       <md-icon>school</md-icon>
-    </md-button>
+    </router-link>
 
     <h2 class="md-title">
       BentoBox
