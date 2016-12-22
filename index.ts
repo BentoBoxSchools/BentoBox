@@ -40,13 +40,18 @@ app.post('/upload', function(req, res) {
   sampleFile = req['files'].sampleFile;
   sampleFile.mv('./myFile.xlsx', function(err) {
     if (err) {
+      console.log("hre");
       res.status(500).send(err);
     }
     else {
-      // Parse a buffer 
-      const workSheetsFromBuffer = xlsx.parse(fs.readFileSync(`${__dirname}/myFile.xlsx`));
       // Parse a file 
-      const workSheetsFromFile = xlsx.parse(`${__dirname}/myFile.xlsx`);
+      var workSheetsFromFile;
+      try {
+        workSheetsFromFile = xlsx.parse(`${__dirname}/myFile.xlsx`);
+      } catch (err) {
+        res.status(500).send(err);
+        return;
+      }
 
       var school = req.body.school;
       var link = req.body.link;
@@ -70,14 +75,13 @@ app.post('/upload', function(req, res) {
 
       console.log(schoolData);
 
-      res.send('File uploaded!');
+      res.redirect('/')
     }
   });
 
 });
 
 app.get("/schoolinfo", function(req, res) {
-  SchoolDb.find({})
   SchoolDb.find({}, function(err, doc) {
     res.json(doc);
   });
@@ -87,4 +91,9 @@ app.get("/schoolinfo/:id", function(req, res) {
   SchoolDb.findOne({"school" : req.params.id}, function(err, doc) {
     res.json(doc ? doc : {});
   });
+});
+
+router.use(function (req, res, next) {
+  console.log(new Date(Date.now()).toLocaleString(), req.method, req.originalUrl);
+  next();
 });

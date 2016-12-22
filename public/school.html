@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Schools</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="angular.min.js"></script>
+    <script src="app.js"></script>
+  </head>
+<body ng-app='SchoolApp'>
+
+   <div class="container" ng-controller="SchoolAppController">
+    <h1>School Info</h1>
+    <h2>{{school.school}}</h2>
+    Donation Link: <a href={{school.link}}>{{school.link}}</a>
+    <ul>
+      <li ng-repeat="item in school.data">{{item}}</li>
+    </ul>
+  </div>
+</body>
+</html>

@@ -1,3 +1,4 @@
 *.js
-
+*.log
+*.xlsx
 node_modules/
