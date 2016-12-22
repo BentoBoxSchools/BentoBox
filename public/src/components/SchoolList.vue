@@ -5,10 +5,13 @@
       md-flex-small="50"
       md-flex-medium="33"
       md-flex="33"
+      v-for="school in schools"
     >
-    <md-card v-for="school in schools">
+    <md-card>
       <md-card-header>
-        <div class="md-title">{{school.name}}</div>
+        <div class="md-title">
+          {{school.name}}
+        </div>
         <div class="md-subhead">{{school.data.length}} Students</div>
       </md-card-header>
 
@@ -17,7 +20,11 @@
       </md-card-content>
 
       <md-card-actions>
-        <md-button :href="school.link">Donate Link</md-button>
+        <md-button target="_blank"
+          :href="school.link"
+        >
+          Donate <md-icon>link</md-icon>
+        </md-button>
       </md-card-actions>
     </md-card>
     </md-layout>
@@ -48,7 +55,13 @@ export default {
 
 <style scoped>
 .container {
-  width: 60em;
+  max-width: 60em;
   margin: 0 auto !important;
+}
+.md-layout .md-layout {
+  margin-bottom: 1.5em;
+}
+.md-card {
+  width: 100%;
 }
 </style>

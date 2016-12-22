@@ -4,7 +4,8 @@ const ObjectId = mongoose.Types.ObjectId;
 
 
 var SchoolSchema = new Schema({
-  school : String,
+  name : String,
+  description: String,
   link: String,
   data: [[String]]
 });

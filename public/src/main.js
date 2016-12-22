@@ -4,8 +4,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueMaterial from 'vue-material'
 
-import App from './App'
-import CreateSchool from './CreateSchool'
+import router from './router'
 
 // styles
 import 'vue-material/dist/vue-material.css'
@@ -13,16 +12,6 @@ import 'vue-material/dist/vue-material.css'
 Vue.use(VueMaterial)
 Vue.use(VueRouter)
 
-const routes = [
-  { path: '/', component: App },
-  { path: '/create', component: CreateSchool }
-]
-
-/* eslint-disable no-new */
-const router = new VueRouter({
-  mode: 'history',
-  routes
-})
-
 /* eslint-disable no-new */
 new Vue({router}).$mount('#app')
+

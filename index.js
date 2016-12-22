@@ -11,12 +11,16 @@ mongoose.connect('mongodb://localhost:27017/schools');
 var port = process.env.PORT || 8080;
 var app = express();
 var router = express.Router();
+app.use('/api', router);
 app.use('/', express.static(path.join(__dirname, './public/dist')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/api', router);
+// for html5 to remember all locations
+app.get('/*', function (req, res) {
+    res.sendFile(__dirname + '/public/dist/index.html');
+});
 app.listen(port, function () {
-    console.log('listening on ${port}');
+    console.log("listening on " + port);
 });
 var fileUpload = require('express-fileupload');
 // default options 
@@ -47,14 +51,7 @@ router.post('/schools/upload', function (req, res) {
     });
 });
 router.post('/schools/', function (req, res) {
-    var school = req.body.school;
-    var link = req.body.link;
-    var data = req.body.data;
-    var schoolData = new school_1.SchoolDb({
-        school: school,
-        link: link,
-        data: data
-    });
+    var schoolData = new school_1.SchoolDb(req.body);
     schoolData.save(function (err, doc) {
         if (err) {
             res.status(400).end();
