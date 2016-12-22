@@ -12,24 +12,26 @@ import { SchoolDb } from "./school";
 (mongoose as any).Promise = require('bluebird');
 mongoose.connect('mongodb://localhost:27017/schools');
 
+const port = process.env.PORT || 8080;
+
 const app = express();
 const router = express.Router();
 
-app.use('/', express.static(path.join(__dirname, './public')));
+app.use('/', express.static(path.join(__dirname, './public/dist')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use('/', router);
+app.use('/api', router);
 
-app.listen(8080, () => {
-  console.log('listening on 8080');
+app.listen(port, () => {
+  console.log('listening on ${port}');
 });
 
 var fileUpload = require('express-fileupload');
  
 // default options 
-app.use(fileUpload());
+router.use(fileUpload());
  
-app.post('/upload', function(req, res) {
+router.post('/upload', function(req, res) {
   var sampleFile;
  
   if (!req['files']) {
@@ -81,13 +83,13 @@ app.post('/upload', function(req, res) {
 
 });
 
-app.get("/schoolinfo", function(req, res) {
+router.get("/schools", function(req, res) {
   SchoolDb.find({}, function(err, doc) {
     res.json(doc);
   });
 });
 
-app.get("/schoolinfo/:id", function(req, res) {
+router.get("/schools/:id", function(req, res) {
   SchoolDb.findOne({"school" : req.params.id}, function(err, doc) {
     res.json(doc ? doc : {});
   });

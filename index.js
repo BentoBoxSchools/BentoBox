@@ -8,19 +8,20 @@ var node_xlsx_1 = require("node-xlsx");
 var school_1 = require("./school");
 mongoose.Promise = require('bluebird');
 mongoose.connect('mongodb://localhost:27017/schools');
+var port = process.env.PORT || 8080;
 var app = express();
 var router = express.Router();
-app.use('/', express.static(path.join(__dirname, './public')));
+app.use('/', express.static(path.join(__dirname, './public/dist')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/', router);
-app.listen(8080, function () {
-    console.log('listening on 8080');
+app.use('/api', router);
+app.listen(port, function () {
+    console.log('listening on ${port}');
 });
 var fileUpload = require('express-fileupload');
 // default options 
-app.use(fileUpload());
-app.post('/upload', function (req, res) {
+router.use(fileUpload());
+router.post('/upload', function (req, res) {
     var sampleFile;
     if (!req['files']) {
         res.send('No files were uploaded.');
@@ -63,12 +64,12 @@ app.post('/upload', function (req, res) {
         }
     });
 });
-app.get("/schoolinfo", function (req, res) {
+router.get("/schools", function (req, res) {
     school_1.SchoolDb.find({}, function (err, doc) {
         res.json(doc);
     });
 });
-app.get("/schoolinfo/:id", function (req, res) {
+router.get("/schools/:id", function (req, res) {
     school_1.SchoolDb.findOne({ "school": req.params.id }, function (err, doc) {
         res.json(doc ? doc : {});
     });

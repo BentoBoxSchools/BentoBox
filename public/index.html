@@ -1,22 +1,15 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
   <head>
-    <title>Schools</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>School Donator</title>
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   </head>
-<body ng-app='SchoolApp'>
-
-   <div class="container" ng-controller="SchoolsAppController">
-    <h1>Schools</h1>
-    <ul>
-      <li ng-repeat="school in schools"><a href=/school.html?school={{school.school}}>{{school.school}}</a></li>
-    </ul>
-  </div>
-
-  <div><a href="create.html">create school</a></div>
-
-
-    <script src="angular.min.js"></script>
-    <script src="app.js"></script>
-</body>
+  <body>
+    <div id="app">
+      <router-view></router-view>
+    </div>
+    <!-- built files will be auto injected -->
+  </body>
 </html>
