@@ -31,29 +31,34 @@ app.listen(port, () => {
 });
 
 var fileUpload = require('express-fileupload');
- 
-// default options 
+
+// default options
 router.use(fileUpload());
- 
+
+router.use(function (req, res, next) {
+  console.log(new Date(Date.now()).toLocaleString(), req.method, req.originalUrl);
+  next();
+});
+
 router.post('/schools/upload', function(req, res) {
   var sampleFile;
- 
+
   if (!req['files']) {
     res.send('No files were uploaded.');
     return;
   }
- 
+
   sampleFile = req['files'].sampleFile;
   sampleFile.mv('./myFile.xlsx', function(err) {
     if (err) {
       res.status(500).send(err);
     }
     else {
-      // Parse a file 
+      // Parse a file
       var workSheetsFromFile;
       try {
         workSheetsFromFile = xlsx.parse(`${__dirname}/myFile.xlsx`);
-        res.json(workSheetsFromFile);
+        res.json(cleanXL(workSheetsFromFile));
       } catch (err) {
         res.status(500).send(err);
         return;
@@ -63,9 +68,34 @@ router.post('/schools/upload', function(req, res) {
 
 });
 
+function cleanXL(workSheetsFromFile) {
+  var data = workSheetsFromFile[0].data;
+
+  var students = []
+  data.forEach(function(student) {
+    var studentInfo = {
+      "school": student[1],
+      "grade": student[2],
+      "account_number": student[3],
+      "balance": student[4]
+    }
+
+    if (!studentInfo.school ||
+      !studentInfo.grade ||
+      !studentInfo.account_number ||
+      typeof studentInfo.balance != 'number') {
+        console.log("weeding out bad data", studentInfo);
+    } else {
+      students.push(studentInfo);
+    }
+  });
+
+  return students;
+}
+
 router.post('/schools', function(req, res) {
   var schoolData = new SchoolDb(req.body);
- 
+
   schoolData.save(function(err, doc) {
     if (err) {
       res.status(400).end();
@@ -86,9 +116,4 @@ router.get("/schools/:id", function(req, res) {
   SchoolDb.findOne({"_id" : req.params.id}, function(err, doc) {
     res.json(doc ? doc : {});
   });
-});
-
-router.use(function (req, res, next) {
-  console.log(new Date(Date.now()).toLocaleString(), req.method, req.originalUrl);
-  next();
 });
