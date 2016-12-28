@@ -7,7 +7,7 @@ var SchoolSchema = new Schema({
   name : String,
   description: String,
   link: String,
-  data: [[String]]
+  data: []
 });
 
 export var SchoolDb : mongoose.Model<mongoose.Document> = mongoose.model("schools", SchoolSchema);

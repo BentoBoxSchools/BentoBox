@@ -11,7 +11,26 @@
       <md-card-content>
         <p>{{school.description}}</p>
 
-        <pre>{{school.data}}</pre>
+        <md-table v-if="school.data">
+           <md-table-header>
+             <md-table-row>
+               <md-table-head v-for="header in headers">
+                 {{header | capFirst}}
+               </md-table-head>
+             </md-table-row>
+           </md-table-header>
+
+           <md-table-body>
+             <md-table-row
+               v-for="(row, index) in school.data"
+               :key="index"
+            >
+               <md-table-cell v-for="col in row">
+                 {{col}}
+               </md-table-cell>
+             </md-table-row>
+           </md-table-body>
+         </md-table>
       </md-card-content>
 
       <md-card-actions>
@@ -31,6 +50,11 @@ export default {
   components: {
     LayoutHeader
   },
+  filters: {
+    capFirst: function (value) {
+      return value ? value.charAt(0).toUpperCase() + value.slice(1).toLowerCase() : '';
+    }
+  },
   data () {
     return {
       school: {
@@ -39,6 +63,11 @@ export default {
         link: '',
         data: []
       }
+    }
+  },
+  computed: {
+    headers () {
+      return this.school.data.length ? Object.keys(this.school.data[0]) : []
     }
   },
   mounted () {

@@ -6,6 +6,6 @@ var SchoolSchema = new Schema({
     name: String,
     description: String,
     link: String,
-    data: [[String]]
+    data: []
 });
 exports.SchoolDb = mongoose.model("schools", SchoolSchema);

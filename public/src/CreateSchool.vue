@@ -27,7 +27,26 @@
            Drop or select a Excel File (.xls)
          </file-uploader>
 
-         <pre>{{school.data}}</pre>
+         <md-table v-if="school.data">
+           <md-table-header>
+             <md-table-row>
+               <md-table-head v-for="header in headers">
+                 {{header | capFirst}}
+               </md-table-head>
+             </md-table-row>
+           </md-table-header>
+
+           <md-table-body>
+             <md-table-row
+               v-for="(row, index) in school.data"
+               :key="index"
+            >
+               <md-table-cell v-for="col in row">
+                 {{col}}
+               </md-table-cell>
+             </md-table-row>
+           </md-table-body>
+         </md-table>
 
         </form>
       </md-card-content>
@@ -65,14 +84,23 @@ export default {
       }
     }
   },
+  filters: {
+    capFirst: function (value) {
+      return value ? value.charAt(0).toUpperCase() + value.slice(1).toLowerCase() : '';
+    }
+  },
+  computed: {
+    headers () {
+      return this.school.data.length ? Object.keys(this.school.data[0]) : []
+    }
+  },
   methods: {
     onUploaded (data) {
-      this.school.data = data[0].data
+      this.school.data = data
     },
     save () {
       axios.post('/api/schools', this.school)
         .then(resp => {
-          console.log('created')
           router.push({ path: '/' })
         })
         .catch(resp => {
@@ -90,8 +118,8 @@ export default {
   margin: 0 auto;
 }
 
-pre {
-  max-height: 10em;
+.md-table {
+  max-height: 20em;
   overflow: auto;
 }
 </style>
