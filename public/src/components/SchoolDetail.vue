@@ -11,10 +11,13 @@
       <md-card-content>
         <p>{{school.description}}</p>
 
-        <md-table v-if="school.data">
+        <md-table-card>
+         <md-table @sort="onSort">
            <md-table-header>
              <md-table-row>
-               <md-table-head v-for="header in headers">
+               <md-table-head v-for="(header, index) in headers"
+                 :md-numeric="isIndexNumeric(index)"
+                 :md-sort-by="header">
                  {{header | capFirst}}
                </md-table-head>
              </md-table-row>
@@ -22,16 +25,29 @@
 
            <md-table-body>
              <md-table-row
-               v-for="(row, index) in school.data"
+               v-for="(row, index) in dataForTable"
                :key="index"
             >
-               <md-table-cell v-for="col in row">
+               <md-table-cell
+                 v-for="col in row"
+                 :md-numeric="isNumeric(col)"
+                 :key="index"
+               >
                  {{col}}
                </md-table-cell>
              </md-table-row>
            </md-table-body>
          </md-table>
-      </md-card-content>
+
+         <md-table-pagination
+           :md-size="pagination.size"
+           :md-page="pagination.page"
+           md-label="Students"
+           md-separator="of"
+           :md-page-options="[10, 20, 40, 60, 80, 100]"
+           @pagination="onPagination"></md-table-pagination>
+         </md-card-content>
+       </md-table-card>
 
       <md-card-actions>
         <md-button target="_blank" :href="school.link">Donate</md-button>
@@ -62,12 +78,49 @@ export default {
         description: '',
         link: '',
         data: []
-      }
-    }
+      },
+			pagination: {
+				size: 10,
+				page: 1
+			},
+			sort: {
+				name: '',
+				type: 'asc'
+			}
+		}
   },
   computed: {
     headers () {
       return this.school.data.length ? Object.keys(this.school.data[0]) : []
+    },
+    dataForTable() {
+			return this.school.data.filter((d, i) => {
+				let {size, page} = this.pagination
+				return i >= size * (page - 1) && i < size * page
+			}).sort((a, b) => {
+				let {name, type} = this.sort
+				return type === 'desc' ? a[name] - b[name] : b[name] - a[name]
+			})
+    }
+  },
+  methods: {
+    onSort (sort) {
+			this.sort = sort
+    },
+    onPagination (pagination) {
+			this.pagination = pagination
+    },
+    isIndexNumeric (index) {
+      if (this.school.data.length < 1) {
+        return false
+      } else {
+        let name = Object.keys(this.school.data[0])[index]
+        let value = this.school.data[0][name]
+        return this.isNumeric(value)
+      }
+    },
+    isNumeric (value) {
+      return !isNaN(value) && isFinite(value)
     }
   },
   mounted () {
