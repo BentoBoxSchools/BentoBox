@@ -2,10 +2,12 @@ import VueRouter from 'vue-router'
 
 import App from './App'
 import CreateSchool from './CreateSchool'
-import SchoolDetail from './components/SchoolDetail'
+import SchoolListContainer from './SchoolListContainer'
+import SchoolDetail from './SchoolDetail'
 
 const routes = [
   { path: '/', component: App },
+  { path: '/schools', component: SchoolListContainer },
   { path: '/create', component: CreateSchool },
   { path: '/school/:id', component: SchoolDetail }
 ]

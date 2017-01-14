@@ -6,6 +6,7 @@ import router from './router'
 
 // styles
 import 'vue-material/dist/vue-material.css'
+import './assets/app.css'
 
 Vue.use(VueMaterial)
 Vue.use(VueRouter)

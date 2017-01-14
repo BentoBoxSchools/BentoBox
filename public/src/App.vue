@@ -1,31 +1,27 @@
 <template>
-  <div id="app">
+  <main id="bentobox-app">
     <layout-header>
     </layout-header>
-    <school-list>
-    </school-list>
-    <router-link tag="md-button" class="md-fab md-fab-bottom-right"
-      to="/create">
-      <md-icon>add</md-icon>
-    </router-link>
-  </div>
+    <landing-page>
+    </landing-page>
+  </main>
 </template>
 
 <script>
 import LayoutHeader from './components/LayoutHeader'
-import SchoolList from './components/SchoolList'
+import LandingPage from './components/LandingPage'
 
 export default {
   name: 'app',
   components: {
-    LayoutHeader,
-    SchoolList
+    LandingPage,
+    LayoutHeader
   }
 }
 </script>
 
 <style scoped>
-#app {
+#bentobox-app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

@@ -4,9 +4,9 @@
       <md-icon>school</md-icon>
     </router-link>
 
-    <h2 class="md-title">
+    <h1 class="md-title">
       BentoBox
-    </h2>
+    </h1>
   </md-toolbar>
 </template>
 

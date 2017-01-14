@@ -59,7 +59,7 @@
 <script>
 import axios from 'axios'
 
-import LayoutHeader from './LayoutHeader'
+import LayoutHeader from './components/LayoutHeader'
 
 export default {
   name: 'school-detail',
