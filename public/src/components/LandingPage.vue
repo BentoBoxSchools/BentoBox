@@ -24,6 +24,34 @@
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non, voluptas eius illo quas, saepe voluptate pariatur in deleniti minus sint. Excepturi.
       </md-card-content>
     </md-card>
+    <md-card>
+      <md-card-header>
+        <div class="md-title">Why?</div>
+      </md-card-header>
+
+      <md-card-content>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non, voluptas eius illo quas, saepe voluptate pariatur in deleniti minus sint. Excepturi.
+      </md-card-content>
+    </md-card>
+    <md-card>
+      <md-card-header>
+        <div class="md-title">What?</div>
+      </md-card-header>
+
+      <md-card-content>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non, voluptas eius illo quas, saepe voluptate pariatur in deleniti minus sint. Excepturi.
+      </md-card-content>
+    </md-card>
+    <footer>
+      <div class="container flex column">
+        <div class="social-links">
+          <a class="twitter" href="https://twitter.com/bentoboxschools">
+            <md-icon class="md-size-2x" md-src="/static/twitter-box.svg"></md-icon>
+          </a>
+        </div>
+        <div class="copy-right">© BentoBox, Inc.</div>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -40,18 +68,19 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #map {
   height: 20em;
   width: 100%;
   background-color: #ccc;
 }
 .landing-page {
-  margin-bottom: 2em;
+  background-color: #e3e3e3;
 }
 .hero-background {
   height: 40em;
   width: 100%;
+  color: #fff;
   background-color: #009688;
   background-image: url('../assets/food.svg');
   display: flex;
@@ -63,5 +92,24 @@ export default {
 .hero-background h1 {
   font-size: 64px;
   font-weight: 900;
+}
+
+.md-card {
+  margin-bottom: 1em;
+}
+
+footer {
+  background-color: #fff;
+}
+.social-links {
+  align-self: flex-end;
+  margin-top: 3em;
+  margin-bottom: 2em;
+}
+.social-links a.twitter {
+  color: #1da1f2;
+}
+.copy-right {
+  margin-bottom: 2em;
 }
 </style>

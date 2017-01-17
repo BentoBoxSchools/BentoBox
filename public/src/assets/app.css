@@ -9,3 +9,25 @@ h1 {
 h2 {
   font-family: 'Dosis', sans-serif;
 }
+
+.md-whiteframe-2dp {
+  margin-bottom: 1em;
+}
+
+.container {
+  width: 60em;
+  margin: 0 auto;
+}
+
+.flex {
+  display: flex;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.flex.center {
+  justify-content: center;
+  align-items: center;
+}

@@ -1,23 +1,38 @@
 <template>
-  <md-toolbar class="md-transparent">
-    <router-link tag="md-button" class="md-icon-button" to="/">
+  <md-whiteframe md-tag="md-toolbar" :md-elevation="depth">
+    <router-link tag="md-button" to="/">
       <md-icon>school</md-icon>
     </router-link>
-
     <h1 class="md-title">
       BentoBox
     </h1>
-  </md-toolbar>
+
+    <router-link tag="md-button" to="/schools" class="md-raised">
+      Schools
+    </router-link>
+    <router-link tag="md-button" to="/">
+      Log In
+    </router-link>
+    <router-link tag="md-button" to="/create">
+      Sign up
+    </router-link>
+  </md-whiteframe>
 </template>
 
 <script>
 export default {
-  name: 'layout-header'
+  name: 'layout-header',
+  computed: {
+    depth () {
+      return (this.$router.currentRoute.path === '/') ? 0 : 2
+    }
+  }
 }
 </script>
 
 <style scoped>
-h2.md-title {
+h1.md-title {
   flex: 1;
 }
 </style>
+
