@@ -15,7 +15,7 @@
         Log In
       </router-link>
       <router-link class="__user" tag="md-button" to="/create">
-        Sign up
+        Add your school
       </router-link>
     </div>
   </md-whiteframe>
