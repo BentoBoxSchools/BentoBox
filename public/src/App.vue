@@ -22,12 +22,8 @@ export default {
 
 <style scoped>
 #bentobox-app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
-}
-.md-fab {
-  z-index: 9999999999999999;
 }
 </style>

@@ -87,7 +87,14 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
   margin-bottom: 1em;
+  padding: 1em;
+}
+@media (max-width: 600px) {
+  .hero-background {
+    height: 42em;
+  }
 }
 .hero-background h1 {
   font-size: 64px;
@@ -96,10 +103,13 @@ export default {
 
 .md-card {
   margin-bottom: 1em;
+  margin-left: 1em;
+  margin-right: 1em;
 }
 
 footer {
   background-color: #fff;
+  padding: 0 2em;
 }
 .social-links {
   align-self: flex-end;

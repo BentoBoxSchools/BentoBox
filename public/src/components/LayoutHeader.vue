@@ -7,15 +7,17 @@
       BentoBox
     </h1>
 
-    <router-link tag="md-button" to="/schools" class="md-raised">
-      Schools
-    </router-link>
-    <router-link tag="md-button" to="/">
-      Log In
-    </router-link>
-    <router-link tag="md-button" to="/create">
-      Sign up
-    </router-link>
+    <div class="actions">
+      <router-link tag="md-button" to="/schools" class="md-raised">
+        Schools
+      </router-link>
+      <router-link class="__user" tag="md-button" to="/">
+        Log In
+      </router-link>
+      <router-link class="__user" tag="md-button" to="/create">
+        Sign up
+      </router-link>
+    </div>
   </md-whiteframe>
 </template>
 
@@ -33,6 +35,12 @@ export default {
 <style scoped>
 h1.md-title {
   flex: 1;
+}
+
+@media (max-width: 786px) {
+  .actions .__user {
+    display: none;
+  }
 }
 </style>
 
