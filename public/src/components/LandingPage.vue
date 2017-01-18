@@ -95,6 +95,11 @@ export default {
   .hero-background {
     height: 42em;
   }
+
+  .md-card {
+    margin-left: 1em;
+    margin-right: 1em;
+  }
 }
 .hero-background h1 {
   font-size: 64px;
@@ -103,8 +108,6 @@ export default {
 
 .md-card {
   margin-bottom: 1em;
-  margin-left: 1em;
-  margin-right: 1em;
 }
 
 footer {
