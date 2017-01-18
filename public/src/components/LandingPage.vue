@@ -65,6 +65,9 @@
     <footer>
       <div class="container flex column">
         <div class="social-links">
+          <a class="github" href="https://github.com/bentoboxschools">
+            <md-icon class="md-size-2x" md-src="/static/github-box.svg"></md-icon>
+          </a>
           <a class="twitter" href="https://twitter.com/bentoboxschools">
             <md-icon class="md-size-2x" md-src="/static/twitter-box.svg"></md-icon>
           </a>
@@ -152,6 +155,9 @@ footer {
 .social-links a.twitter {
   color: #1da1f2;
 }
+.social-links a.github {
+  color: #333;
+}
 .copy-right {
   margin-bottom: 2em;
 }
@@ -173,5 +179,4 @@ footer {
     flex-direction: column;
   }
 }
-
 </style>
