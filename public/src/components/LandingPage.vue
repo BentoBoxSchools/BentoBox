@@ -24,24 +24,35 @@
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non, voluptas eius illo quas, saepe voluptate pariatur in deleniti minus sint. Excepturi.
       </md-card-content>
     </md-card>
-    <md-card>
-      <md-card-header>
-        <div class="md-title">Why?</div>
-      </md-card-header>
+    <div class="flex row container">
+      <md-card>
+        <md-card-header>
+          <div class="md-title">Why?</div>
+        </md-card-header>
 
-      <md-card-content>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non, voluptas eius illo quas, saepe voluptate pariatur in deleniti minus sint. Excepturi.
-      </md-card-content>
-    </md-card>
-    <md-card>
-      <md-card-header>
-        <div class="md-title">What?</div>
-      </md-card-header>
+        <md-card-content>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non, voluptas eius illo quas, saepe voluptate pariatur in deleniti minus sint. Excepturi.
+        </md-card-content>
+      </md-card>
+      <md-card>
+        <md-card-header>
+          <div class="md-title">What?</div>
+        </md-card-header>
 
-      <md-card-content>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non, voluptas eius illo quas, saepe voluptate pariatur in deleniti minus sint. Excepturi.
-      </md-card-content>
-    </md-card>
+        <md-card-content>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non, voluptas eius illo quas, saepe voluptate pariatur in deleniti minus sint. Excepturi.
+        </md-card-content>
+      </md-card>
+      <md-card>
+        <md-card-header>
+          <div class="md-title">How?</div>
+        </md-card-header>
+
+        <md-card-content>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non, voluptas eius illo quas, saepe voluptate pariatur in deleniti minus sint. Excepturi.
+        </md-card-content>
+      </md-card>
+    </div>
     <footer>
       <div class="container flex column">
         <div class="social-links">
@@ -72,10 +83,10 @@ export default {
 #map {
   height: 20em;
   width: 100%;
-  background-color: #ccc;
+  background-color: #ddd;
 }
 .landing-page {
-  background-color: #e3e3e3;
+  background-color: #f3f3f3;
 }
 .hero-background {
   height: 40em;
@@ -108,6 +119,9 @@ export default {
 
 .md-card {
   margin-bottom: 1em;
+}
+.flex.row .md-card:not(:last-of-type) {
+  margin-right: 1em;
 }
 
 footer {
