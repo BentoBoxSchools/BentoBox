@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+	"pre-start": "npm install",
     "start": "node index.js",
     "compile-watch": "tsc -w index.ts"
   },

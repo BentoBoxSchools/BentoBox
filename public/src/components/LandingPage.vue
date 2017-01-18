@@ -127,8 +127,12 @@ export default {
 .hero-background h1 {
   font-size: 64px;
   font-weight: 900;
+  letter-spacing: 0.3em;
 }
 
+.md-card .md-card-header h2 {
+  letter-spacing: 0.3em;
+}
 .md-card {
   margin-bottom: 1em;
 }
