@@ -10,8 +10,13 @@ h2 {
   font-family: 'Dosis', sans-serif;
 }
 
+.md-card .md-card-header {
+  padding: 1.5em;
+  padding-bottom: 0;
+}
 .md-card .md-card-content {
   font-size: 16px;
+  padding: 1.5em;
   line-height: 1.5em;
   line-space: 1.2em;
 }

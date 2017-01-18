@@ -47,13 +47,17 @@
         </md-card-header>
 
         <md-card-content>
-          We currently allow schools all over the country to share their unpaid lunch balances with us, and we provide donors the ability to contribute directly to the schools.
+          <p>We currently allow schools all over the country to share their unpaid lunch balances with us, and we provide donors the ability to contribute directly to the schools.</p>
         </md-card-content>
 
         <md-card-actions>
           <router-link tag="md-button" class="md-primary"
+            to="/create">
+            Host your school
+          </router-link>
+          <router-link tag="md-button" class="md-primary"
             to="/schools">
-            Contact a local school around you
+            Contact a local school
           </router-link>
         </md-card-actions>
       </md-card>
@@ -107,22 +111,11 @@ export default {
   margin-bottom: 1em;
   padding: 1em;
 }
-@media (max-width: 600px) {
-  .hero-background {
-    height: 42em;
-  }
 
-  .md-card {
-    margin-left: 1em;
-    margin-right: 1em;
-  }
-  .flex.row {
-    flex-direction: column;
-  }
-}
 .hero-background h1,
 .hero-background h2 {
   text-shadow: #333 0 2px 10px;
+  line-height: 1.5em;
 }
 .hero-background h1 {
   font-size: 64px;
@@ -132,6 +125,7 @@ export default {
 
 .md-card .md-card-header h2 {
   letter-spacing: 0.3em;
+  border-bottom: 1px solid #e3e3e3;
 }
 .md-card {
   margin-bottom: 1em;
@@ -161,4 +155,23 @@ footer {
 .copy-right {
   margin-bottom: 2em;
 }
+
+@media (max-width: 600px) {
+  .hero-background {
+    height: 42em;
+  }
+
+  .hero-background h1 {
+    font-size: 42px;
+  }
+
+  .md-card {
+    margin-left: 1em;
+    margin-right: 1em;
+  }
+  .flex.row {
+    flex-direction: column;
+  }
+}
+
 </style>
