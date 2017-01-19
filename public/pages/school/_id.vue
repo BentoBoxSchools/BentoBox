@@ -59,7 +59,7 @@
 <script>
 import axios from 'axios'
 
-import LayoutHeader from './components/LayoutHeader'
+import LayoutHeader from '~components/LayoutHeader'
 
 export default {
   name: 'school-detail',
@@ -79,36 +79,36 @@ export default {
         link: '',
         data: []
       },
-			pagination: {
-				size: 10,
-				page: 1
-			},
-			sort: {
-				name: '',
-				type: 'asc'
-			}
-		}
+      pagination: {
+        size: 10,
+        page: 1
+      },
+      sort: {
+        name: '',
+        type: 'asc'
+      }
+    }
   },
   computed: {
     headers () {
       return this.school.data.length ? Object.keys(this.school.data[0]) : []
     },
     dataForTable() {
-			return this.school.data.filter((d, i) => {
-				let {size, page} = this.pagination
-				return i >= size * (page - 1) && i < size * page
-			}).sort((a, b) => {
-				let {name, type} = this.sort
-				return type === 'desc' ? a[name] - b[name] : b[name] - a[name]
-			})
+      return this.school.data.filter((d, i) => {
+        let {size, page} = this.pagination
+        return i >= size * (page - 1) && i < size * page
+      }).sort((a, b) => {
+        let {name, type} = this.sort
+        return type === 'desc' ? a[name] - b[name] : b[name] - a[name]
+      })
     }
   },
   methods: {
     onSort (sort) {
-			this.sort = sort
+      this.sort = sort
     },
     onPagination (pagination) {
-			this.pagination = pagination
+      this.pagination = pagination
     },
     isIndexNumeric (index) {
       if (this.school.data.length < 1) {
@@ -125,10 +125,10 @@ export default {
   },
   mounted () {
     axios.get(`/api/schools/${this.$route.params.id}`)
-      .then(resp => {
-        this.school = resp.data
-        this.school.data.splice(0, 2)
-      })
+    .then(resp => {
+      this.school = resp.data
+      this.school.data.splice(0, 2)
+    })
   }
 }
 </script>

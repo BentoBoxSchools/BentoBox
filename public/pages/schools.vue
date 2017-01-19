@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import SchoolList from './components/SchoolList'
-import LayoutHeader from './components/LayoutHeader'
+import SchoolList from '~components/SchoolList'
+import LayoutHeader from '~components/LayoutHeader'
 
 export default {
   name: 'school-list-container',

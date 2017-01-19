@@ -5,64 +5,67 @@
       <h2>Thousands of kids in American schools have unpaid school lunch balances.</h2>
       <h2>Help ease the burden for these students and their families.</h2>
     </section>
-    <md-card>
-      <md-card-media>
-        <div id="map"></div>
-      </md-card-media>
 
-      <md-card-actions>
-        <router-link tag="md-button" class="md-primary"
-          to="/schools">
-          List of schools
-        </router-link>
-      </md-card-actions>
-    </md-card>
+    <div class="container">
+      <section class="card">
+        <div class="card__media">
+          <div id="map"></div>
+        </div>
+
+        <footer class="card__actions">
+          <nuxt-link tag="button" class="primary"
+                                  to="/schools">
+            List of schools
+          </nuxt-link>
+        </footer>
+      </section>
+    </div>
     <div class="flex row container">
-      <md-card class="main">
-        <md-card-header>
-          <h2 class="md-title">Our Story?</h2>
-        </md-card-header>
+      <div class="main card">
+        <div class="card__header">
+          <h2>Our Story?</h2>
+        </div>
 
-        <md-card-content>
+        <div class="card__content">
           <p>It all started with a tweet -- one simple tweet asking for people across the country to contact their local schools and ask if there were students with school lunch balances and how they could help pay the balances off for those students.</p>
           <p>I answered the call and was surprised by just how many schools in my own community and beyond have students with balances. Thousands and thousands of dollars. As a concerned community member who is committed helping kids, I jumped at the opportunity to lessen the burden for some of these students and working families.</p>
-        </md-card-content>
-      </md-card>
-      <md-card class="secondary">
-        <md-card-header>
-          <h2 class="md-title">Why?</h2>
-        </md-card-header>
+        </div>
+      </div>
+      <div class="secondary card">
+        <div class="card__header">
+          <h2>Why?</h2>
+        </div>
 
-        <md-card-content>
+        <div class="card__content">
 					<p>Or maybe we should be asking how. How is it that the richest and most powerful nation in the world has thousands of kids in its schools unable to afford to pay for breakfast or lunch?</p>
           <p>When it comes to the biggest challenges our communities face, so few software developers and technologists are tackling the basic issues that matter most.</p>
-        </md-card-content>
-      </md-card>
+        </div>
+      </div>
 
     </div>
     <div class="flex column container">
-      <md-card>
-        <md-card-header>
-          <h2 class="md-title">Where?</h2>
-        </md-card-header>
+      <div class="card">
+        <div class="card__header">
+          <h2>Where?</h2>
+        </div>
 
-        <md-card-content>
+        <div class="card__content">
           <p>We currently allow schools all over the country to share their unpaid lunch balances with us, and we provide donors the ability to contribute directly to the schools.</p>
-        </md-card-content>
+        </div>
 
-        <md-card-actions>
-          <router-link tag="md-button" class="md-primary"
+        <div class="card__actions">
+          <nuxt-link tag="button" class="primary"
             to="/create">
             Host your school
-          </router-link>
-          <router-link tag="md-button" class="md-primary"
+          </nuxt-link>
+          <nuxt-link tag="button" class="primary"
             to="/schools">
             Contact a local school
-          </router-link>
-        </md-card-actions>
-      </md-card>
+          </nuxt-link>
+        </div>
+      </div>
     </div>
-    <footer>
+    <footer class="site-footer">
       <div class="container flex column">
         <div class="social-links">
           <a class="github" href="https://github.com/bentoboxschools">
@@ -105,7 +108,7 @@ export default {
   width: 100%;
   color: #fff;
   background-color: #009688;
-  background-image: url('../assets/food.svg');
+  background-image: url('~assets/food.svg');
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -126,14 +129,11 @@ export default {
   letter-spacing: 0.3em;
 }
 
-.md-card .md-card-header h2 {
+.card .card__header h2 {
   letter-spacing: 0.3em;
   border-bottom: 1px solid #e3e3e3;
 }
-.md-card {
-  margin-bottom: 1em;
-}
-.flex.row .md-card:not(:last-of-type) {
+.flex.row .card:not(:last-of-type) {
   margin-right: 1em;
 }
 .flex.row .main {
@@ -143,7 +143,7 @@ export default {
   flex: 1;
 }
 
-footer {
+.site-footer {
   background-color: #fff;
   padding: 0 2em;
 }
@@ -171,7 +171,7 @@ footer {
     font-size: 42px;
   }
 
-  .md-card {
+  .card {
     margin-left: 1em;
     margin-right: 1em;
   }

@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import LayoutHeader from './components/LayoutHeader'
-import LandingPage from './components/LandingPage'
+import LayoutHeader from '~components/LayoutHeader'
+import LandingPage from '~components/LandingPage'
 
 export default {
   name: 'app',

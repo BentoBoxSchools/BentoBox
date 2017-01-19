@@ -1,0 +1,107 @@
+:root {
+  --primary-color: #009688;
+  --secondary-color: #FFC107;
+  --font-size: 16px;
+  --depth-two: {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  };
+  --depth-four: {
+    box-shadow: 0 8px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  };
+}
+
+html, body, main, button, div, section {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: var(--font-size);
+  box-sizing: border-box;
+  font-family: 'Roboto';
+  color: rgba(0, 0, 0, 0.87);
+}
+a, a:hover {
+  text-decoration: none;
+}
+
+h1 {
+  font-family: 'Rubik', sans-serif;
+}
+h2 {
+  font-family: 'Dosis', sans-serif;
+}
+
+.container {
+  width: 60em;
+  margin: 0 auto;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  border-radius: 3px;
+  padding: 0.5em 1em;
+  margin: 0.3em 0.5em;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+button:hover,
+button.raised:hover {
+  background-color: #fff;
+  @apply --depth-four;
+}
+button:active,
+button.raised,
+button.raised:active {
+  background-color: #fff;
+  @apply --depth-two;
+}
+button:focus {
+  border: none;
+  outline: none;
+}
+button.primary {
+  color: var(--primary-color);
+}
+button.secondar {
+  color: var(--secondary-color);
+}
+
+.card {
+  background-color: #fff;
+  margin-bottom: 1em;
+  @apply --depth-two;
+}
+.card__actions {
+  display: flex;
+  justify-content: flex-end;
+}
+.card__media {
+  width: 100%;
+}
+.card__content,
+.card__header,
+.card__actions {
+  padding: 0 1em;
+}
+
+
+@media (max-width: 960px) {
+  .container {
+    width: 100%;
+  }
+}
+
+.flex {
+  display: flex;
+}
+.flex.column {
+  flex-direction: column;
+}
+.flex.center {
+  justify-content: center;
+  align-items: center;
+}
+
+.flex .fill {
+  flex: 1;
+}
