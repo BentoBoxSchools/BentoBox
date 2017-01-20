@@ -79,13 +79,14 @@ export default {
 
 <style scoped>
 .dropzone {
-  height: 10em;
+  height: 5em;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.5em;
   border-radius: 3px;
   border: 3px dashed #ccc;
+  margin-bottom: 1em;
 }
 .dropzone.dragover {
   background-color: #BBDEFB;
