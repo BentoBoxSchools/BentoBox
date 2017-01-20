@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-	"pre-start": "npm install",
+    "pre-start": "npm install",
     "start": "node index.js",
     "compile-watch": "tsc -w index.ts"
   },
@@ -20,12 +20,15 @@
   },
   "homepage": "https://github.com/tmitim/express-file-upload#readme",
   "dependencies": {
+    "axios": "^0.15.3",
     "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "express-fileupload": "0.0.5",
     "mongoose": "^4.7.1",
-    "node-xlsx": "^0.7.4"
+    "node-xlsx": "^0.7.4",
+    "nuxt": "^0.9.6",
+    "postcss-cssnext": "^2.9.0"
   },
   "devDependencies": {
     "@types/body-parser": "0.0.33",

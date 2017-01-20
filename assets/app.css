@@ -1,5 +1,6 @@
 :root {
   --primary-color: #009688;
+  --primary-color-200: #B2DFDB;
   --secondary-color: #FFC107;
   --font-size: 16px;
   --depth-two: {
@@ -10,7 +11,7 @@
   };
 }
 
-html, body, main, button, div, section {
+html, body, main, button, div, section, input, textarea, table {
   margin: 0;
   padding: 0;
   border: 0;
@@ -35,7 +36,8 @@ h2 {
   margin: 0 auto;
 }
 
-button {
+button,
+.button {
   background-color: transparent;
   border: none;
   border-radius: 3px;
@@ -45,13 +47,15 @@ button {
   transition: all 0.3s;
 }
 button:hover,
-button.raised:hover {
+button.raised:hover,
+.button:hover {
   background-color: #fff;
   @apply --depth-four;
 }
 button:active,
 button.raised,
-button.raised:active {
+button.raised:active,
+.button:active {
   background-color: #fff;
   @apply --depth-two;
 }
@@ -69,7 +73,12 @@ button.secondar {
 .card {
   background-color: #fff;
   margin-bottom: 1em;
+  border-radius: 3px;
   @apply --depth-two;
+}
+.card__header h2 {
+	margin: 0;
+	line-height: 2.5em;
 }
 .card__actions {
   display: flex;
@@ -84,6 +93,50 @@ button.secondar {
   padding: 0 1em;
 }
 
+.input-container {
+  margin-bottom: 1em;
+}
+.input-container input,
+.input-container textarea {
+  line-height: 2.25em;
+  padding: 0 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  width: 100%;
+}
+.input-container label {
+  display: block;
+  color: #555;
+}
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary-color-200);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+table td, table th {
+  padding: 0.3em 0.5em;
+  word-break: break-all;
+}
+table tr {
+  border-bottom: 1px solid #eee;
+}
+table tr:hover {
+  background-color: #f3f3f3;
+}
+
+.layout {
+	display: flex;
+}
+.layout div {
+	flex: 0 0 30%;
+	margin: 1em;
+}
 
 @media (max-width: 960px) {
   .container {

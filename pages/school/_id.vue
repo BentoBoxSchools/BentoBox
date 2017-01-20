@@ -2,57 +2,39 @@
   <div>
     <layout-header></layout-header>
 
-    <md-card>
-      <md-card-header>
-        <div class="md-title">{{school.name}}</div>
-        <div class="md-subhead">{{school.data.length}} Students</div>
-      </md-card-header>
+	<div class="container">
+    <section class="card">
+      <header class="card__header">
+        <h2>{{school.name}}</h2>
+        <div class="subhead">{{school.data.length}} Students</div>
+      </header>
 
-      <md-card-content>
+      <div class="card__content">
         <p>{{school.description}}</p>
 
-        <md-table-card>
-         <md-table @sort="onSort">
-           <md-table-header>
-             <md-table-row>
-               <md-table-head v-for="(header, index) in headers"
-                 :md-numeric="isIndexNumeric(index)"
-                 :md-sort-by="header">
+         <table>
+           <thead>
+             <tr>
+               <td v-for="(header, index) in headers">
                  {{header | capFirst}}
-               </md-table-head>
-             </md-table-row>
-           </md-table-header>
+               </td>
+             </tr>
+           </thead>
 
-           <md-table-body>
-             <md-table-row
-               v-for="(row, index) in dataForTable"
-               :key="index"
-            >
-               <md-table-cell
-                 v-for="col in row"
-                 :md-numeric="isNumeric(col)"
-                 :key="index"
-               >
+           <tbody>
+             <tr v-for="(row, index) in school.data">
+               <td v-for="col in row">
                  {{col}}
-               </md-table-cell>
-             </md-table-row>
-           </md-table-body>
-         </md-table>
+			   </td>
+             </tr>
+           </tbody>
+         </table>
 
-         <md-table-pagination
-           :md-size="pagination.size"
-           :md-page="pagination.page"
-           md-label="Students"
-           md-separator="of"
-           :md-page-options="[10, 20, 40, 60, 80, 100]"
-           @pagination="onPagination"></md-table-pagination>
-         </md-card-content>
-       </md-table-card>
-
-      <md-card-actions>
-        <md-button target="_blank" :href="school.link">Donate</md-button>
-      </md-card-actions>
-    </md-card>
+      <div class="card__actions">
+        <a class="button" target="_blank" :href="school.link">Donate</a>
+      </div>
+    </section>
+	</div>
   </div>
 </template>
 

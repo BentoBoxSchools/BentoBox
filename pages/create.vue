@@ -8,18 +8,18 @@
         </header>
         <div class="card__content">
           <form novalidate @submit.stop.prevent="save">
-            <md-input-container>
-              <label>School name</label>
-              <md-input v-model="school.name"></md-input>
-            </md-input-container>
-            <md-input-container>
-              <label>Description</label>
-              <md-textarea v-model="school.description"></md-textarea>
-            </md-input-container>
-            <md-input-container>
-              <label>Donation link</label>
-              <md-input v-model="school.link" type="url"></md-input>
-            </md-input-container>
+            <div class="input-container">
+              <label for="school-name">School name</label>
+              <input id="school-name" v-model="school.name"></input>
+            </div>
+            <div class="input-container">
+              <label for="description">Description</label>
+              <textarea id="description" v-model="school.description"></textarea>
+            </div>
+            <div class="input-container">
+              <label for="donation-link">Donation link</label>
+              <input id="donation-link" v-model="school.link" type="url"></input>
+            </div>
 
             <file-uploader
               name="sampleFile"
@@ -28,36 +28,34 @@
               Drop or select a Excel File (.xls)
             </file-uploader>
 
-            <md-table v-if="school.data">
-              <md-table-header>
-                <md-table-row>
-                  <md-table-head v-for="header in headers">
+            <table v-if="school.data">
+              <thead>
+                <tr>
+                  <th v-for="header in headers">
                     {{header | capFirst}}
-                  </md-table-head>
-                </md-table-row>
-              </md-table-header>
+                  </th>
+                </tr>
+              </thead>
 
-              <md-table-body>
-                <md-table-row
-                   v-for="(row, index) in school.data"
-                   :key="index"
-                   >
-                   <md-table-cell v-for="col in row">
+              <tbody>
+                <tr
+                  v-for="(row, index) in school.data"
+                >
+                   <td v-for="col in row">
                      {{col}}
-                   </md-table-cell>
-                </md-table-row>
-              </md-table-body>
-            </md-table>
-
+                   </td>
+                </tr>
+              </tbody>
+            </table>
           </form>
-        </md-card-content>
+        </div>
 
-        <md-card-actions>
-          <md-button class="md-raised" @click="save">
+        <div class="card__actions">
+          <button class="primary" @click="save">
             Create
-          </md-button>
-        </md-card-actions>
-      </md-card>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -112,7 +110,7 @@ export default {
 </script>
 
 <style scoped>
-.md-table {
+table {
   max-height: 20em;
   overflow: auto;
 }

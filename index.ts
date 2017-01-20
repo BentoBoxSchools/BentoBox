@@ -1,13 +1,20 @@
 #!/usr/bin/env node
 
-import * as express from "express";
-import * as bodyParser from "body-parser";
-import * as mongoose from "mongoose";
-import * as path from "path";
+import * as express from 'express';
+import * as bodyParser from 'body-parser';
+import * as mongoose from 'mongoose';
+import * as path from 'path';
 import xlsx from 'node-xlsx';
-import * as fs from "fs";
+import * as fs from 'fs';
+import * as Nuxt from 'nuxt';
 
-import { SchoolDb } from "./school";
+import { SchoolDb } from './school';
+
+const isDev = process.env.NODE_ENV !== 'production';
+
+let nuxtConfig = require('./nuxt.config.js');
+nuxtConfig.dev = isDev;
+let nuxt = new Nuxt(nuxtConfig);
 
 (mongoose as any).Promise = require('bluebird');
 mongoose.connect('mongodb://localhost:27017/schools');
@@ -17,17 +24,15 @@ const port = process.env.PORT || 8080;
 const app = express();
 const router = express.Router();
 
-app.use('/', express.static(path.join(__dirname, './public/dist')));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
-app.use('/api', router);
-// for html5 to remember all locations
-app.get('/*', (req, res) => {
-  res.sendFile(__dirname + '/public/dist/index.html');
-});
+nuxt.build().then(() => {
+	app.use(bodyParser.json());
+	app.use(bodyParser.urlencoded({extended: true}));
+	app.use('/api', router);
+	app.use('/', nuxt.render);
 
-app.listen(port, () => {
-  console.log(`listening on ${port}`);
+	app.listen(port, () => {
+	  console.log(`listening on ${port}`);
+	});
 });
 
 var fileUpload = require('express-fileupload');
