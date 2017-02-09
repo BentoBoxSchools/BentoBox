@@ -8,9 +8,10 @@ import * as mongoose from "mongoose";
 import * as path from "path";
 import xlsx from "node-xlsx";
 import * as fs from "fs";
+import * as https from 'https';
 import * as Nuxt from "nuxt";
 import * as passport from "passport";
-import * as GoogleStrategy from "passport-google-oauth20";
+const GoogleStrategy = require("passport-google-oauth20");
 import * as fileUpload from "express-fileupload";
 
 // Business model
@@ -50,9 +51,21 @@ mongoose.connect("mongodb://localhost:27017/schools");
 
 // Express App config
 const port = process.env.PORT || 8080;
+const securePort = process.env.SECURE_PORT || 8443;
 const app = express();
 const internalRouter = express.Router();
 const publicRouter = express.Router();
+
+let options;
+try {
+  options = {
+    key: fs.readFileSync('./certs/key.pem'),
+    cert: fs.readFileSync('./certs/cert.pem')
+  }
+} catch (err) {
+  console.log(err.message);
+  console.log("TLS/SSL will not be available");
+}
 
 // Nuxt config
 let nuxtConfig = require("./nuxt.config.js");
@@ -69,6 +82,10 @@ nuxt.build().then(() => {
 
   app.listen(port, () => {
     console.log(`listening on ${port}`);
+  });
+
+  https.createServer(options, app).listen(securePort, () => {
+    console.log(`listening on ${securePort}`);
   });
 });
 

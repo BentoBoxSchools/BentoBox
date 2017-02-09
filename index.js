@@ -5,16 +5,15 @@ const session = require("express-session");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const node_xlsx_1 = require("node-xlsx");
+const fs = require("fs");
+const https = require("https");
 const Nuxt = require("nuxt");
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20");
 const fileUpload = require("express-fileupload");
-// Business model
 const school_1 = require("./school");
-// Constants
 const isDev = process.env.NODE_ENV !== "production";
 const WHITELIST = process.env.EMAIL_WHITELIST.split(",");
-// PassportJS config
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CONSUMER_KEY,
     clientSecret: process.env.GOOGLE_CONSUMER_SECRET,
@@ -36,19 +35,27 @@ passport.deserializeUser(function (user, done) {
 function isWhiteList(email) {
     return WHITELIST.includes(email.value);
 }
-// Mongo config
 mongoose.Promise = require("bluebird");
 mongoose.connect("mongodb://localhost:27017/schools");
-// Express App config
 const port = process.env.PORT || 8080;
+const securePort = process.env.SECURE_PORT || 8443;
 const app = express();
 const internalRouter = express.Router();
 const publicRouter = express.Router();
-// Nuxt config
+let options;
+try {
+    options = {
+        key: fs.readFileSync('./certs/key.pem'),
+        cert: fs.readFileSync('./certs/cert.pem')
+    };
+}
+catch (err) {
+    console.log(err.message);
+    console.log("TLS/SSL will not be available");
+}
 let nuxtConfig = require("./nuxt.config.js");
 nuxtConfig.dev = isDev;
 let nuxt = new Nuxt(nuxtConfig);
-// start web app after front end build process completed
 nuxt.build().then(() => {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
@@ -58,8 +65,10 @@ nuxt.build().then(() => {
     app.listen(port, () => {
         console.log(`listening on ${port}`);
     });
+    https.createServer(options, app).listen(securePort, () => {
+        console.log(`listening on ${securePort}`);
+    });
 });
-// default options
 internalRouter.use(session({
     secret: "Sch00lBent0B0x",
     resave: false,
@@ -72,7 +81,6 @@ internalRouter.use(function (req, res, next) {
     console.log(new Date(Date.now()).toLocaleString(), req.method, req.originalUrl);
     next();
 });
-// handlers
 internalRouter.get("/login", passport.authenticate("google", {
     scope: [
         "profile",
@@ -94,7 +102,6 @@ internalRouter.post("/schools/upload", function (req, res) {
             res.status(500).send(err);
         }
         else {
-            // Parse a file
             let workSheetsFromFile;
             try {
                 workSheetsFromFile = node_xlsx_1.default.parse(`${__dirname}/myFile.xlsx`);
