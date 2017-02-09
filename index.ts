@@ -91,7 +91,7 @@ nuxt.build().then(() => {
 
 // default options
 internalRouter.use(session({
-  secret: "Sch00lBent0B0x",
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }));
