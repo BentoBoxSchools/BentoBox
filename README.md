@@ -1,8 +1,18 @@
 # school-donator
 
-> A service to simplify school donation process
+A service to simplify school donation process
 
 ## Build Setup
+
+### Backend with TypeScript
+
+Check `start_app.sh` to see what environment variables you need to start app
+
+```bash
+tsc && ./start_app.sh
+```
+
+### Frontend with Vue.js
 
 ``` bash
 # install dependencies
