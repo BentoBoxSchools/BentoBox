@@ -1,23 +1,24 @@
 #!/usr/bin/env node
 
-import * as express from 'express';
-import * as bodyParser from 'body-parser';
-import * as mongoose from 'mongoose';
-import * as path from 'path';
-import xlsx from 'node-xlsx';
-import * as fs from 'fs';
-import * as Nuxt from 'nuxt';
+import * as express from "express";
+import * as bodyParser from "body-parser";
+import * as mongoose from "mongoose";
+import * as path from "path";
+import xlsx from "node-xlsx";
+import * as fs from "fs";
+import * as Nuxt from "nuxt";
+const fileUpload = require("express-fileupload");
 
-import { SchoolDb } from './school';
+import { SchoolDb } from "./school";
 
-const isDev = process.env.NODE_ENV !== 'production';
+const isDev = process.env.NODE_ENV !== "production";
 
-let nuxtConfig = require('./nuxt.config.js');
+let nuxtConfig = require("./nuxt.config.js");
 nuxtConfig.dev = isDev;
 let nuxt = new Nuxt(nuxtConfig);
 
-(mongoose as any).Promise = require('bluebird');
-mongoose.connect('mongodb://localhost:27017/schools');
+(mongoose as any).Promise = require("bluebird");
+mongoose.connect("mongodb://localhost:27017/schools");
 
 const port = process.env.PORT || 8080;
 
@@ -25,42 +26,39 @@ const app = express();
 const router = express.Router();
 
 nuxt.build().then(() => {
-	app.use(bodyParser.json());
-	app.use(bodyParser.urlencoded({extended: true}));
-	app.use('/api', router);
-	app.use('/', nuxt.render);
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({extended: true}));
+  app.use("/api", router);
+  app.use("/", nuxt.render);
 
-	app.listen(port, () => {
-	  console.log(`listening on ${port}`);
-	});
+  app.listen(port, () => {
+    console.log(`listening on ${port}`);
+  });
 });
-
-var fileUpload = require('express-fileupload');
 
 // default options
 router.use(fileUpload());
-
 router.use(function (req, res, next) {
   console.log(new Date(Date.now()).toLocaleString(), req.method, req.originalUrl);
   next();
 });
 
-router.post('/schools/upload', function(req, res) {
-  var sampleFile;
+router.post("/schools/upload", function(req, res) {
+  let sampleFile;
 
-  if (!req['files']) {
-    res.send('No files were uploaded.');
+  if (!req["files"]) {
+    res.send("No files were uploaded.");
     return;
   }
 
-  sampleFile = req['files'].sampleFile;
-  sampleFile.mv('./myFile.xlsx', function(err) {
+  sampleFile = req["files"].sampleFile;
+  sampleFile.mv("./myFile.xlsx", function(err) {
     if (err) {
       res.status(500).send(err);
     }
     else {
       // Parse a file
-      var workSheetsFromFile;
+      let workSheetsFromFile;
       try {
         workSheetsFromFile = xlsx.parse(`${__dirname}/myFile.xlsx`);
         res.json(cleanXL(workSheetsFromFile));
@@ -74,21 +72,21 @@ router.post('/schools/upload', function(req, res) {
 });
 
 function cleanXL(workSheetsFromFile) {
-  var data = workSheetsFromFile[0].data;
+  let data = workSheetsFromFile[0].data;
 
-  var students = []
+  let students = [];
   data.forEach(function(student) {
-    var studentInfo = {
+    let studentInfo = {
       "school": student[1],
       "grade": student[2],
       "account_number": student[3],
       "balance": student[4]
-    }
+    };
 
     if (!studentInfo.school ||
       !studentInfo.grade ||
       !studentInfo.account_number ||
-      typeof studentInfo.balance != 'number') {
+      typeof studentInfo.balance !== "number") {
         console.log("weeding out bad data", studentInfo);
     } else {
       students.push(studentInfo);
@@ -98,8 +96,8 @@ function cleanXL(workSheetsFromFile) {
   return students;
 }
 
-router.post('/schools', function(req, res) {
-  var schoolData = new SchoolDb(req.body);
+router.post("/schools", function(req, res) {
+  let schoolData = new SchoolDb(req.body);
 
   schoolData.save(function(err, doc) {
     if (err) {
@@ -108,7 +106,7 @@ router.post('/schools', function(req, res) {
       return;
     }
   });
-  res.redirect('/')
+  res.redirect("/");
 });
 
 router.get("/schools", function(req, res) {
