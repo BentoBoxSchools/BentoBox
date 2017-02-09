@@ -1,13 +1,13 @@
-import * as mongoose from 'mongoose';
+import * as mongoose from "mongoose";
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Types.ObjectId;
 
 
-var SchoolSchema = new Schema({
+let SchoolSchema = new Schema({
   name : String,
   description: String,
   link: String,
   data: []
 });
 
-export var SchoolDb : mongoose.Model<mongoose.Document> = mongoose.model("schools", SchoolSchema);
+export const SchoolDb: mongoose.Model<mongoose.Document> = mongoose.model("schools", SchoolSchema);

@@ -20,14 +20,19 @@
   },
   "homepage": "https://github.com/tmitim/express-file-upload#readme",
   "dependencies": {
+    "@types/passport": "^0.3.3",
+    "@types/passport-google-oauth": "^1.0.32",
     "axios": "^0.15.3",
     "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "express-fileupload": "0.0.5",
+    "express-session": "^1.15.0",
     "mongoose": "^4.7.1",
     "node-xlsx": "^0.7.4",
     "nuxt": "^0.9.6",
+    "passport": "^0.3.2",
+    "passport-google-oauth20": "^1.0.0",
     "postcss-cssnext": "^2.9.0"
   },
   "devDependencies": {

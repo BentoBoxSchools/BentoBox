@@ -42,7 +42,7 @@ export default {
     }
   },
   mounted () {
-    axios.get('/api/schools')
+    axios.get('/api/public/schools')
       .then(resp => {
         this.schools = resp.data
       })

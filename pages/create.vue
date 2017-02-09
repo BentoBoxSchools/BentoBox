@@ -97,7 +97,7 @@ export default {
       this.school.data = data
     },
     save () {
-      axios.post('/api/schools', this.school)
+      axios.post('/api/internal/schools', this.school)
         .then(resp => {
           console.log(resp)
         })

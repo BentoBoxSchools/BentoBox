@@ -106,7 +106,7 @@ export default {
     }
   },
   mounted () {
-    axios.get(`/api/schools/${this.$route.params.id}`)
+    axios.get(`/api/public/schools/${this.$route.params.id}`)
     .then(resp => {
       this.school = resp.data
       this.school.data.splice(0, 2)

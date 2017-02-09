@@ -2,7 +2,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Types.ObjectId;
-var SchoolSchema = new Schema({
+let SchoolSchema = new Schema({
     name: String,
     description: String,
     link: String,

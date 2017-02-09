@@ -12,9 +12,9 @@
         <nuxt-link tag="button" to="/schools" class="raised">
           Schools
         </nuxt-link>
-        <nuxt-link class="__user" tag="button" to="/">
+        <a class="__user button" href="/api/internal/login">
           Log In
-        </nuxt-link>
+        </a>
         <nuxt-link class="__user" tag="button" to="/create">
           Add your school
         </nuxt-link>
