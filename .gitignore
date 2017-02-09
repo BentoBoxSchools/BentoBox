@@ -1,3 +1,4 @@
+*.pem
 *.log
 *.xlsx
 node_modules/
