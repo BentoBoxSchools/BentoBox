@@ -13,6 +13,7 @@ import LandingPage from '~components/LandingPage'
 
 export default {
   name: 'app',
+  middleware: 'authentication',
   components: {
     LandingPage,
     LayoutHeader

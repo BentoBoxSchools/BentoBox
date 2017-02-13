@@ -12,10 +12,13 @@
         <nuxt-link tag="button" to="/schools" class="raised">
           Schools
         </nuxt-link>
-        <a class="__user button" href="/api/internal/login">
+        <a class="__user button" href="/api/internal/login" v-if="!user">
           Log In
         </a>
-        <nuxt-link class="__user" tag="button" to="/create">
+        <a class="__user button" v-if="user">
+          Hello {{user.displayName}}
+        </a>
+        <nuxt-link class="__user" tag="button" to="/create" v-if="user">
           Add your school
         </nuxt-link>
       </div>
@@ -29,6 +32,9 @@ export default {
   computed: {
     depth () {
       return (this.$router.currentRoute.path === '/') ? 0 : 2
+    },
+    user () {
+      return this.$store.getters.loggedUser
     }
   }
 }

@@ -8,7 +8,7 @@ import * as mongoose from "mongoose";
 import * as path from "path";
 import xlsx from "node-xlsx";
 import * as fs from "fs";
-import * as https from 'https';
+import * as https from "https";
 import * as Nuxt from "nuxt";
 import * as passport from "passport";
 const GoogleStrategy = require("passport-google-oauth20");
@@ -18,6 +18,10 @@ import * as fileUpload from "express-fileupload";
 import { SchoolDb } from "./school";
 
 // Constants
+const INTERNAL_PATH_WHITELIST = [
+  "/login",
+  "/google/callback"
+];
 const isDev = process.env.NODE_ENV !== "production";
 const WHITELIST = process.env.EMAIL_WHITELIST.split(",");
 
@@ -59,9 +63,9 @@ const publicRouter = express.Router();
 let options;
 try {
   options = {
-    key: fs.readFileSync('./certs/key.pem'),
-    cert: fs.readFileSync('./certs/cert.pem')
-  }
+    key: fs.readFileSync("./certs/key.pem"),
+    cert: fs.readFileSync("./certs/cert.pem")
+  };
 } catch (err) {
   console.log(err.message);
   console.log("TLS/SSL will not be available");
@@ -90,17 +94,29 @@ nuxt.build().then(() => {
 });
 
 // default options
-internalRouter.use(session({
+app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }));
-internalRouter.use(passport.initialize());
-internalRouter.use(passport.session());
-internalRouter.use(fileUpload());
-internalRouter.use(function (req, res, next) {
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(fileUpload());
+app.use(function (req, res, next) {
   console.log(new Date(Date.now()).toLocaleString(), req.method, req.originalUrl);
   next();
+});
+
+// internal router related settings
+internalRouter.use((req, res, next) => {
+  if (
+    INTERNAL_PATH_WHITELIST.includes(req.path) ||
+    req.isAuthenticated()
+  ) {
+    next();
+  } else {
+    res.status(403).json({message: "Not authenciated"});
+  }
 });
 
 // handlers

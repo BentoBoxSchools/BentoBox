@@ -16,6 +16,12 @@
       <div class="card__actions">
         <nuxt-link
           tag="button"
+          :to="'/school/' + school._id + '/edit'"
+        >
+          Edit
+        </nuxt-link>
+        <nuxt-link
+          tag="button"
           :to="'/school/' + school._id"
         >
           Detail
@@ -39,6 +45,11 @@ export default {
   data () {
     return {
       schools: []
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.getters.loggedUser
     }
   },
   mounted () {
