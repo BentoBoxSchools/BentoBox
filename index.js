@@ -152,6 +152,16 @@ function cleanXL(workSheetsFromFile) {
             typeof studentInfo.balance === "number";
     });
 }
+internalRouter.put("/schools/:id", (req, res) => {
+    school_1.SchoolDb.update({ "_id": req.params.id }, { $set: req.body }, err => {
+        if (err) {
+            res.status(503).json(err);
+            console.error(err);
+            return;
+        }
+        res.status(200).send();
+    });
+});
 internalRouter.post("/schools", function (req, res) {
     let schoolData = new school_1.SchoolDb(req.body);
     schoolData.save(function (err, doc) {
@@ -160,7 +170,7 @@ internalRouter.post("/schools", function (req, res) {
             console.log(err);
             return;
         }
-        res.redirect("/");
+        res.status(200).send();
     });
 });
 publicRouter.get("/schools", function (req, res) {

@@ -178,6 +178,17 @@ function cleanXL(workSheetsFromFile) {
   });
 }
 
+internalRouter.put("/schools/:id", (req, res) => {
+  SchoolDb.update({"_id" : req.params.id}, { $set: req.body }, err => {
+    if (err) {
+      res.status(503).json(err);
+      console.error(err);
+      return;
+    }
+    res.status(200).send();
+  });
+});
+
 internalRouter.post("/schools", function(req, res) {
   let schoolData = new SchoolDb(req.body);
 
@@ -187,7 +198,7 @@ internalRouter.post("/schools", function(req, res) {
       console.log(err);
       return;
     }
-    res.redirect("/");
+    res.status(200).send();
   });
 });
 

@@ -5,6 +5,7 @@ module.exports = {
       require('postcss-cssnext')()
     ]
   },
+  cache: true,
   /*
   ** Headers of the page
   */

@@ -16,7 +16,7 @@
       <div class="card__actions">
         <nuxt-link
           tag="button"
-          :to="'/school/' + school._id + '/edit'"
+          :to="'/school/edit/' + school._id"
         >
           Edit
         </nuxt-link>
@@ -29,7 +29,7 @@
         <a class="button" target="_blank"
           :href="school.link"
         >
-          Donate <md-icon>link</md-icon>
+          Donate
         </a>
       </div>
     </section>
