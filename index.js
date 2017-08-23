@@ -1,25 +1,25 @@
 #!/usr/bin/env node
 "use strict";
-const express = require("express");
-const session = require("express-session");
-const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-const node_xlsx_1 = require("node-xlsx");
-const fs = require("fs");
-const https = require("https");
-const Nuxt = require("nuxt");
-const passport = require("passport");
-const GoogleStrategy = require("passport-google-oauth20");
-const fileUpload = require("express-fileupload");
+exports.__esModule = true;
+var express = require("express");
+var session = require("express-session");
+var bodyParser = require("body-parser");
+var mongoose = require("mongoose");
+var node_xlsx_1 = require("node-xlsx");
+var fs = require("fs");
+var Nuxt = require("nuxt");
+var passport = require("passport");
+var GoogleStrategy = require("passport-google-oauth20");
+var fileUpload = require("express-fileupload");
 // Business model
-const school_1 = require("./school");
+var school_1 = require("./school");
 // Constants
-const INTERNAL_PATH_WHITELIST = [
+var INTERNAL_PATH_WHITELIST = [
     "/login",
     "/google/callback"
 ];
-const isDev = process.env.NODE_ENV !== "production";
-const WHITELIST = process.env.EMAIL_WHITELIST.split(",");
+var isDev = process.env.NODE_ENV !== "production";
+var WHITELIST = process.env.EMAIL_WHITELIST.split(",");
 // PassportJS config
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CONSUMER_KEY,
@@ -30,7 +30,7 @@ passport.use(new GoogleStrategy({
         done(null, profile);
     }
     else {
-        done(`Not authorized user attempting to login. ${JSON.stringify(profile)}`);
+        done("Not authorized user attempting to login. " + JSON.stringify(profile));
     }
 }));
 passport.serializeUser(function (user, done) {
@@ -46,12 +46,12 @@ function isWhiteList(email) {
 mongoose.Promise = require("bluebird");
 mongoose.connect("mongodb://localhost:27017/schools");
 // Express App config
-const port = process.env.PORT || 8080;
-const securePort = process.env.SECURE_PORT || 8443;
-const app = express();
-const internalRouter = express.Router();
-const publicRouter = express.Router();
-let options;
+var port = process.env.PORT || 8080;
+var securePort = process.env.SECURE_PORT || 8443;
+var app = express();
+var internalRouter = express.Router();
+var publicRouter = express.Router();
+var options = {};
 try {
     options = {
         key: fs.readFileSync("./certs/key.pem"),
@@ -63,21 +63,18 @@ catch (err) {
     console.log("TLS/SSL will not be available");
 }
 // Nuxt config
-let nuxtConfig = require("./nuxt.config.js");
+var nuxtConfig = require("./nuxt.config.js");
 nuxtConfig.dev = isDev;
-let nuxt = new Nuxt(nuxtConfig);
+var nuxt = new Nuxt(nuxtConfig);
 // start web app after front end build process completed
-nuxt.build().then(() => {
+nuxt.build().then(function () {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use("/api/internal", internalRouter);
     app.use("/api/public", publicRouter);
     app.use("/", nuxt.render);
-    app.listen(port, () => {
-        console.log(`listening on ${port}`);
-    });
-    https.createServer(options, app).listen(securePort, () => {
-        console.log(`listening on ${securePort}`);
+    app.listen(port, function () {
+        console.log("listening on " + port);
     });
 });
 // default options
@@ -94,7 +91,7 @@ app.use(function (req, res, next) {
     next();
 });
 // internal router related settings
-internalRouter.use((req, res, next) => {
+internalRouter.use(function (req, res, next) {
     if (INTERNAL_PATH_WHITELIST.includes(req.path) ||
         req.isAuthenticated()) {
         next();
@@ -110,11 +107,11 @@ internalRouter.get("/login", passport.authenticate("google", {
         "https://www.googleapis.com/auth/plus.profile.emails.read"
     ]
 }));
-internalRouter.get("/google/callback", passport.authenticate("google", { failureRedirect: "/" }), (req, res) => {
+internalRouter.get("/google/callback", passport.authenticate("google", { failureRedirect: "/" }), function (req, res) {
     res.redirect("/");
 });
 internalRouter.post("/schools/upload", function (req, res) {
-    let sampleFile;
+    var sampleFile;
     if (!req["files"]) {
         res.send("No files were uploaded.");
         return;
@@ -126,9 +123,9 @@ internalRouter.post("/schools/upload", function (req, res) {
         }
         else {
             // Parse a file
-            let workSheetsFromFile;
+            var workSheetsFromFile = void 0;
             try {
-                workSheetsFromFile = node_xlsx_1.default.parse(`${__dirname}/myFile.xlsx`);
+                workSheetsFromFile = node_xlsx_1["default"].parse(__dirname + "/myFile.xlsx");
                 res.json(cleanXL(workSheetsFromFile));
             }
             catch (err) {
@@ -139,21 +136,21 @@ internalRouter.post("/schools/upload", function (req, res) {
     });
 });
 function cleanXL(workSheetsFromFile) {
-    let data = workSheetsFromFile[0].data;
-    return data.map(student => {
+    var data = workSheetsFromFile[0].data;
+    return data.map(function (student) {
         return {
             "school": student[1],
             "grade": student[2],
             "account_number": student[3],
             "balance": student[4]
         };
-    }).filter(studentInfo => {
+    }).filter(function (studentInfo) {
         return studentInfo.school && studentInfo.grade && studentInfo.account_number &&
             typeof studentInfo.balance === "number";
     });
 }
-internalRouter.put("/schools/:id", (req, res) => {
-    school_1.SchoolDb.update({ "_id": req.params.id }, { $set: req.body }, err => {
+internalRouter.put("/schools/:id", function (req, res) {
+    school_1.SchoolDb.update({ "_id": req.params.id }, { $set: req.body }, function (err) {
         if (err) {
             res.status(503).json(err);
             console.error(err);
@@ -163,7 +160,7 @@ internalRouter.put("/schools/:id", (req, res) => {
     });
 });
 internalRouter.post("/schools", function (req, res) {
-    let schoolData = new school_1.SchoolDb(req.body);
+    var schoolData = new school_1.SchoolDb(req.body);
     schoolData.save(function (err, doc) {
         if (err) {
             res.status(400).end();

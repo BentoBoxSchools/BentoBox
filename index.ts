@@ -60,7 +60,7 @@ const app = express();
 const internalRouter = express.Router();
 const publicRouter = express.Router();
 
-let options;
+let options = {};
 try {
   options = {
     key: fs.readFileSync("./certs/key.pem"),
@@ -86,10 +86,6 @@ nuxt.build().then(() => {
 
   app.listen(port, () => {
     console.log(`listening on ${port}`);
-  });
-
-  https.createServer(options, app).listen(securePort, () => {
-    console.log(`listening on ${securePort}`);
   });
 });
 

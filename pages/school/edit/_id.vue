@@ -55,7 +55,7 @@
             Edit
           </button>
         </div>
-      </div>
+      </section>
     </div>
   </div>
 </template>
